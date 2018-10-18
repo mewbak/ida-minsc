@@ -1721,14 +1721,14 @@ class address(object):
     @classmethod
     def iterate(cls, start, end):
         '''Iterate from address `start` to `end`.'''
-        start, end = builtins.map(interface.address.head, (start, end))
+        start, end = interface.address.within(start, end)
         step = cls.prev if start > end else cls.next
         return cls.iterate(start, end, step)
     @utils.multicase(start=six.integer_types, end=six.integer_types, step=callable)
     @classmethod
     def iterate(cls, start, end, step):
         '''Iterate from address `start` to `end` using the callable `step` to determine the next address.'''
-        start, end = builtins.map(interface.address.head, (start, end))
+        start, end = interface.address.inside(start, end)
         left, right = config.bounds()
         right = idaapi.prev_not_tail(right)
 
