@@ -101,7 +101,9 @@ class current(object):
         if not ok:
             raise internal.exceptions.DisassemblerError("{:s}.selection() : Unable to read the current selection.".format('.'.join((__name__, cls.__name__))))
         pl_l, pl_r = left.place(view), right.place(view)
-        return _database.address.head(pl_l.ea), _database.address.tail(pl_r.ea)
+        l, r = _database.address.head(pl_l.ea), _database.address.tail(pl_r.ea)
+        return internal.interface.bounds_t(l, r)
+    selected = internal.utils.alias(selection, 'current')
     @classmethod
     def opnum(cls):
         '''Return the currently selected operand number.'''
