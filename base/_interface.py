@@ -1248,3 +1248,20 @@ class bounds_t(namedtypedtuple):
     """
     _fields = ('left', 'right')
     _types = (six.integer_types, six.integer_types)
+
+class string(object):
+    """
+    IDA takes ascii strings and internally encodes them as UTF8. So
+    this class aims to normalize all of these strings by converting
+    them into a `unicode` type.
+    """
+
+    @classmethod
+    def of(cls, string):
+        '''Return a string from IDA in a format that is consistent'''
+        return string.decode('utf8')
+
+    @classmethod
+    def to(cls, string):
+        '''Convert a string into a form that IDA will accept.'''
+        return string.encode('utf8')
